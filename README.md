@@ -6,7 +6,7 @@
 
 # Step
 ### 1) set MESSAGER_APP_SECRET on setEnvVal.sh
-![MESSAGER_APP_SECRET](https://storage.googleapis.com/bundle_asia_dra/temp/temp/MESSENGER_APP_SECRET%20)
+![MESSAGER_APP_SECRET](https://storage.googleapis.com/bundle_asia_dra/temp/temp/MESSENGER_APP_SECRET.jpg)
 
 ### 2) set MESSAGER_APP_ACCESS_TOKEN on setEnvVal.sh
 ![MESSAGER_APP_ACCESS_TOKEN](https://storage.googleapis.com/bundle_asia_dra/temp/temp/MESSENGER_PAGE_ACCESS_TOKEN.jpg)
