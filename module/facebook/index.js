@@ -1,7 +1,8 @@
 /******************************************************************************************
 Facebook env setting
 ******************************************************************************************/
-var crypto = require('crypto');
+var crypto = require('crypto')
+    request = require('request');
 
 
 var APP_SECRET = process.env.MESSENGER_APP_SECRET ? process.env.MESSENGER_APP_SECRET : config.get('appSecret');

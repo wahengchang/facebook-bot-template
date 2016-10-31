@@ -14,7 +14,6 @@ var bodyParser = require('body-parser'),
     config = require('config'),
     express = require('express'),
     https = require('https'),
-    request = require('request'),
     facebookModule = new require('./module/facebook')();
 
 var app = express();
