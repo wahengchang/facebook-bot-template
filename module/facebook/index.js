@@ -692,6 +692,15 @@ function facebookModule() {
         });
     }
 
+    function validateGET(req, res, next) {
+          if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+            console.log("Validating webhook");
+            next();
+          } else {
+            console.error("Failed validation. Make sure the validation tokens match.");
+            res.sendStatus(403);
+          }
+    }
 
     return {
         verifyRequestSignature: verifyRequestSignature,
@@ -707,7 +716,8 @@ function facebookModule() {
         sendTypingOn: sendTypingOn,
         sendTypingOff: sendTypingOff,
         receivedDeliveryConfirmation: receivedDeliveryConfirmation,
-        sendAccountLinking: sendAccountLinking
+        sendAccountLinking: sendAccountLinking,
+        validateGET: validateGET
     };
 }
 
