@@ -19,9 +19,9 @@ var bodyParser = require('body-parser'),
     parsePOST = facebookModule.parsePOST;
 
 facebookModule.init({
-  APP_SECRET: process.env.APP_SECRET,
-  VALIDATION_TOKEN: process.env.VALIDATION_TOKEN,
-  PAGE_ACCESS_TOKEN: process.env.PAGE_ACCESS_TOKEN,
+  APP_SECRET: process.env.MESSENGER_APP_SECRET,
+  VALIDATION_TOKEN: process.env.MESSENGER_VALIDATION_TOKEN,
+  PAGE_ACCESS_TOKEN: process.env.MESSENGER_PAGE_ACCESS_TOKEN,
   SERVER_URL: process.env.SERVER_URL
 })
 
