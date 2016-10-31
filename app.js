@@ -15,7 +15,8 @@ var bodyParser = require('body-parser'),
     express = require('express'),
     https = require('https'),
     facebookModule = new require('./module/facebook')(),
-    validateGET = facebookModule.validateGET;
+    validateGET = facebookModule.validateGET,
+    parsePOST = facebookModule.parsePOST;
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
@@ -39,11 +40,16 @@ app.get('/webhook', validateGET, function (req, res, next) {
  * https://developers.facebook.com/docs/messenger-platform/product-overview/setup#subscribe_app
  *
  */
-app.post('/webhook', function (req, res) {
+app.post('/webhook', parsePOST, function (req, res) {
   console.log(' ****************  POST /webhook **********************')
   console.log(JSON.stringify(req.body))
 
-  var data = req.body;
+  // var data = req.body;
+
+  var data = req.afterParse ;
+
+  console.log(' ************ data **************')
+  console.log(JSON.stringify(data))
 
   // Make sure this is a page subscription
   // if (data.object == 'page') {

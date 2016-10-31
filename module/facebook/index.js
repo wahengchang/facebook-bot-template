@@ -702,6 +702,68 @@ function facebookModule() {
           }
     }
 
+    function parsePOST(req, res, next) {
+       var data = req.body;
+       var returnJ = [];
+
+       if (data.object == 'page') {
+           // Iterate over each entry
+           // There may be multiple if batched
+           data.entry.forEach(function(pageEntry) {
+               var pageID = pageEntry.id;
+               var timeOfEvent = pageEntry.time;
+
+               // Iterate over each messaging event
+               pageEntry.messaging.forEach(function(messagingEvent) {
+                    var messageType = '';
+                   if (messagingEvent.optin) {
+                        messageType = 'Authentication';
+                   } else if (messagingEvent.message) {
+                       //Message types:
+                       //echo
+                       //quickReply
+                       //messageText
+                       //messageAttachments
+                       if(messagingEvent.message.is_echo){
+                            messageType = 'Echo';
+                       } else if(messagingEvent.message.quick_reply){
+                            messageType = 'QuickReply';
+                       }
+                   } else if (messagingEvent.delivery) {
+                        messageType = 'DeliveryConfirmation';
+                   } else if (messagingEvent.postback) {
+                        messageType = 'Postback';
+                   } else if (messagingEvent.read) {
+                        messageType = 'MessageRead';
+                   } else if (messagingEvent.account_linking) {
+                        messageType = 'AccountLink';
+                   } else {
+                        console.error("Webhook received unknown messagingEvent: ", messagingEvent);
+                        res.sendStatus(403);
+                   }
+
+                   returnJ.push({
+                    messageType: messageType,
+                    metadata: messagingEvent.message.metadata,
+                    attachment: messagingEvent.message.attachments,
+                    text: messagingEvent.message.text,
+                    appId: messagingEvent.message.app_id,
+                    messageId: messagingEvent.message.mid,
+                    senderID: messagingEvent.message.sender.id,
+                    recipientID: messagingEvent.message.recipient.id,
+                    time: messagingEvent.message.timestamp
+                   })
+               });
+           });
+
+            req.afterParse = returnJ;
+       }
+       else{
+            console.error("Data.object required page.");
+            res.sendStatus(403);
+       }
+   }
+
     return {
         verifyRequestSignature: verifyRequestSignature,
         receivedAuthentication: receivedAuthentication,
@@ -717,7 +779,8 @@ function facebookModule() {
         sendTypingOff: sendTypingOff,
         receivedDeliveryConfirmation: receivedDeliveryConfirmation,
         sendAccountLinking: sendAccountLinking,
-        validateGET: validateGET
+        validateGET: validateGET,
+        parsePOST: parsePOST
     };
 }
 
