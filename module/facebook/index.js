@@ -596,6 +596,9 @@ function facebookModule() {
     }
 
     function parsePOST(req, res, next) {
+  console.log(' ****************  POST /webhook **********************')
+  console.log(JSON.stringify(req.body))
+  
        var data = req.body;
        var returnJ = [];
 

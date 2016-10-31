@@ -41,8 +41,6 @@ app.get('/webhook', validateGET, function (req, res, next) {
  *
  */
 app.post('/webhook', parsePOST, function (req, res) {
-  console.log(' ****************  POST /webhook **********************')
-  console.log(JSON.stringify(req.body))
 
   var data = req.afterParse ;
 
