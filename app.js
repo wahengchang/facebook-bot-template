@@ -14,9 +14,16 @@ var bodyParser = require('body-parser'),
     config = require('config'),
     express = require('express'),
     https = require('https'),
-    facebookModule = new require('./module/facebook')(),
+    facebookModule = require('./module/facebook'),
     validateGET = facebookModule.validateGET,
     parsePOST = facebookModule.parsePOST;
+
+facebookModule.init({
+  APP_SECRET: process.env.APP_SECRET,
+  VALIDATION_TOKEN: process.env.VALIDATION_TOKEN,
+  PAGE_ACCESS_TOKEN: process.env.PAGE_ACCESS_TOKEN,
+  SERVER_URL: process.env.SERVER_URL
+})
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
@@ -42,13 +49,16 @@ app.get('/webhook', validateGET, function (req, res, next) {
  */
 app.post('/webhook', parsePOST, function (req, res) {
 
-  var data = req.afterParse ;
+  var dataList = req.afterParse ;
 
-  console.log(' ****************  data **********************')
-  console.log(JSON.stringify(data))
+  console.log(' ****************  dataList **********************')
+  console.log(JSON.stringify(dataList))
 
+  dataList.forEach(function(date){
+      facebookModule.sendTextMessage(date.senderId, 'this is test message')
+  })
 
-    res.sendStatus(200);
+  res.sendStatus(200);
 });
 
 /*
