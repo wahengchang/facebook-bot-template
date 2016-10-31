@@ -748,15 +748,16 @@ function facebookModule() {
                     attachment: messagingEvent.message.attachments,
                     text: messagingEvent.message.text,
                     appId: messagingEvent.message.app_id,
-                    messageId: messagingEvent.message.mid,
-                    senderID: messagingEvent.sender.id,
-                    recipientID: messagingEvent.recipient.id,
-                    time: messagingEvent.timestamp
+                    // messageId: messagingEvent.message.mid,
+                    // senderID: messagingEvent.sender.id,
+                    // recipientID: messagingEvent.recipient.id,
+                    // time: messagingEvent.timestamp
                    })
                });
            });
 
             req.afterParse = returnJ;
+            next();
        }
        else{
             console.error("Data.object required page.");
