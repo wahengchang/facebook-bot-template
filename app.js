@@ -55,7 +55,9 @@ app.post('/webhook', parsePOST, function (req, res) {
   console.log(JSON.stringify(dataList))
 
   dataList.forEach(function(date){
+    if(date.messageType !== 'DeliveryConfirmation' && date.messageType !== 'Echo' ){
       facebookModule.sendTextMessage(date.senderId, 'this is test message')
+    }
   })
 
   res.sendStatus(200);
