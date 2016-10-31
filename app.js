@@ -51,12 +51,14 @@ app.post('/webhook', parsePOST, function (req, res) {
 
   var dataList = req.afterParse ;
 
-  console.log(' ****************  dataList **********************')
-  console.log(JSON.stringify(dataList))
 
-  dataList.forEach(function(date){
-    if(date.messageType !== 'DeliveryConfirmation' && date.messageType !== 'Echo' ){
-      facebookModule.sendTextMessage(date.senderId, 'this is test message')
+  dataList.forEach(function(data){
+    if(data.messageType !== 'DeliveryConfirmation' && data.messageType !== 'Echo' &&  data.messageType !== 'MessageRead'){
+          
+      console.log(' ****************  dataList **********************')
+      console.log(JSON.stringify(dataList))
+      
+      facebookModule.sendTextMessage(data.senderId, 'this is test message')
     }
   })
 
