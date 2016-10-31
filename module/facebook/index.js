@@ -16,6 +16,7 @@ function facebookModule() {
     
 
     var init = function(_initJson){
+        console.log('-------------------- init ', _initJson)
         if(!_initJson){
             console.error("Missing config values");
             return false;
@@ -31,6 +32,7 @@ function facebookModule() {
                 return false;
             }
             else{
+                console.error("Init finished");
                 isInit = true;
                 return true;
             }
@@ -38,6 +40,8 @@ function facebookModule() {
     }
 
     function verifyRequestSignature(req, res, buf) {
+        console.log('-------------------- verifyRequestSignature ')
+
         var signature = req.headers["x-hub-signature"];
 
         if (!signature) {
