@@ -46,37 +46,37 @@ app.post('/webhook', function (req, res) {
   var data = req.body;
 
   // Make sure this is a page subscription
-  if (data.object == 'page') {
-    // Iterate over each entry
-    // There may be multiple if batched
-    data.entry.forEach(function (pageEntry) {
-      var pageID = pageEntry.id;
-      var timeOfEvent = pageEntry.time;
+  // if (data.object == 'page') {
+  //   // Iterate over each entry
+  //   // There may be multiple if batched
+  //   data.entry.forEach(function (pageEntry) {
+  //     var pageID = pageEntry.id;
+  //     var timeOfEvent = pageEntry.time;
 
-      // Iterate over each messaging event
-      pageEntry.messaging.forEach(function (messagingEvent) {
-        if (messagingEvent.optin) {
-          facebookModule.receivedAuthentication(messagingEvent);
-        } else if (messagingEvent.message) {
-          facebookModule.receivedMessage(messagingEvent);
-          //Message types:
-          //echo
-          //quickReply
-          //messageText
-          //messageAttachments
-        } else if (messagingEvent.delivery) {
-          facebookModule.receivedDeliveryConfirmation(messagingEvent);
-        } else if (messagingEvent.postback) {
-          facebookModule.receivedPostback(messagingEvent);
-        } else if (messagingEvent.read) {
-          facebookModule.receivedMessageRead(messagingEvent);
-        } else if (messagingEvent.account_linking) {
-          facebookModule.receivedAccountLink(messagingEvent);
-        } else {
-          console.log("Webhook received unknown messagingEvent: ", messagingEvent);
-        }
-      });
-    });
+  //     // Iterate over each messaging event
+  //     pageEntry.messaging.forEach(function (messagingEvent) {
+  //       if (messagingEvent.optin) {
+  //         facebookModule.receivedAuthentication(messagingEvent);
+  //       } else if (messagingEvent.message) {
+  //         facebookModule.receivedMessage(messagingEvent);
+  //         //Message types:
+  //         //echo
+  //         //quickReply
+  //         //messageText
+  //         //messageAttachments
+  //       } else if (messagingEvent.delivery) {
+  //         facebookModule.receivedDeliveryConfirmation(messagingEvent);
+  //       } else if (messagingEvent.postback) {
+  //         facebookModule.receivedPostback(messagingEvent);
+  //       } else if (messagingEvent.read) {
+  //         facebookModule.receivedMessageRead(messagingEvent);
+  //       } else if (messagingEvent.account_linking) {
+  //         facebookModule.receivedAccountLink(messagingEvent);
+  //       } else {
+  //         console.log("Webhook received unknown messagingEvent: ", messagingEvent);
+  //       }
+  //     });
+  //   });
 
     // Assume all went well.
     //
