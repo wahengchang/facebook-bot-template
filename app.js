@@ -41,7 +41,7 @@ app.get('/webhook', validateGET, function (req, res, next) {
  */
 app.post('/webhook', function (req, res) {
   console.log(' ****************  POST /webhook **********************')
-  console.log(req.body)
+  console.log(JSON.stringify(req.body))
 
   var data = req.body;
 
