@@ -749,9 +749,9 @@ function facebookModule() {
                     text: messagingEvent.message.text,
                     appId: messagingEvent.message.app_id,
                     messageId: messagingEvent.message.mid,
-                    senderID: messagingEvent.message.sender.id,
-                    recipientID: messagingEvent.message.recipient.id,
-                    time: messagingEvent.message.timestamp
+                    senderID: messagingEvent.sender.id,
+                    recipientID: messagingEvent.recipient.id,
+                    time: messagingEvent.timestamp
                    })
                });
            });
