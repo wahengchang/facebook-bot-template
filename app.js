@@ -53,13 +53,13 @@ app.post('/webhook', parsePOST, function (req, res) {
 
 
   dataList.forEach(function(data){
-    if(data.messageType !== 'DeliveryConfirmation' && data.messageType !== 'Echo' &&  data.messageType !== 'MessageRead'){
-          
+    facebookModule.notListen('DeliveryConfirmation' ,'Echo', 'MessageRead', data, function(){
+
       console.log(' ****************  dataList **********************')
       console.log(JSON.stringify(dataList))
       
-      facebookModule.sendTextMessage(data.senderId, 'this is test message')
-    }
+      facebookModule.sendTextMessage(data.senderId, 'this is test message: ' +message.text)
+    })
   })
 
   res.sendStatus(200);

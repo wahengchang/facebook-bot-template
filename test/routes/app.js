@@ -31,7 +31,7 @@ describe('Test GET /webhook', function() {
 })
 
 
-describe.only('Test POST /webhook', function() {
+describe('Test POST /webhook', function() {
   this.timeout(40000);
 
   var param = {

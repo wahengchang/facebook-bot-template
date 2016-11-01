@@ -85,6 +85,66 @@ describe('Test send message /module/facebook.js', function() {
     })
   });
 
+  describe('listener /module/facebook.js', function() {
+
+    it('listener, match messageType', function(done) {
+      facebookModule.listener('a', 'b', 'messageType', 'messageType', function(){
+        done();
+      })
+    });
+
+    it('listener, does not match messageType', function(done) {
+      facebookModule.listener('a', 'b', 'c', 'messageType', function(){
+        done('should not match messageType');
+      })
+      done();
+    });
+
+    it('listener, does match data.messageType', function(done) {
+      facebookModule.listener('a', 'b', 'messageType', {messageType: 'messageType'}, function(){
+        done();
+      })
+    });
+
+    it('listener, does not match data.messageType', function(done) {
+      facebookModule.listener('a', 'b', 'c', {messageType: 'messageType'}, function(){
+        done('should not match messageType');
+      })
+      done();
+    });
+  });
+
+
+
+  describe('notListener /module/facebook.js', function() {
+
+    it('notListener, messageType match, should not pass', function(done) {
+      facebookModule.notListener('a', 'b', 'messageType', 'messageType', function(){
+        done('should not pass');
+      })
+      done();
+    });
+
+    it('notListener, not messageType match, should pass', function(done) {
+      facebookModule.notListener('a', 'b', 'c', 'messageType', function(){
+        done();
+      })
+    });
+
+    it('notListener, messageType match, should not pass', function(done) {
+      facebookModule.notListener('a', 'b', 'messageType', {messageType: 'messageType'}, function(){
+        done('should not pass');
+      })
+      done();
+    });
+
+    it('notListener, not messageType match, should pass', function(done) {
+      facebookModule.notListener('a', 'b', 'c', {messageType: 'messageType'}, function(){
+        done();
+      })
+    });
+  });
+
 
 })
 

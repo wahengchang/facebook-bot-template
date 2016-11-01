@@ -1,5 +1,5 @@
 
-var crypto = require('crypto')
+var crypto = require('crypto'),
     request = require('request');
 
 
@@ -175,6 +175,53 @@ function facebookModule() {
           }
     }
 
+    function listener () {
+          var target  = arguments[arguments.length -2] ; 
+          var targetMessageType ='';
+          var cb  = arguments[arguments.length -1] ; 
+
+          if(typeof target == 'string'){
+            targetMessageType = target;
+          }
+          else{
+            targetMessageType = target.messageType;
+          }
+
+          for (var i = 0; i < arguments.length -2 ; i++) {
+            if(arguments[i] == targetMessageType){
+                return cb();
+            }
+          }
+    }
+
+    function notListener () {
+          var target  = arguments[arguments.length -2] ; 
+          var targetMessageType ='';
+          var cb  = arguments[arguments.length -1] ; 
+          var isMatch = false;
+
+          if(typeof target == 'string'){
+            targetMessageType = target;
+          }
+          else{
+            targetMessageType = target.messageType;
+          }
+
+          for (var i = 0; i < arguments.length -2 ; i++) {
+            if(arguments[i] == targetMessageType){
+                isMatch = true;
+            }
+          }
+            
+            if(!isMatch){
+                return cb();
+            }
+    }
+
+    function MessageListener() {
+          listener()
+    }
+
 
     function parsePOST(req, res, next) {
 
@@ -237,6 +284,8 @@ function facebookModule() {
         sendQuickReply: sendQuickReply,
         sendTextMessage: sendTextMessage,
         validateGET: validateGET,
+        listener: listener,
+        notListener: notListener,
         parsePOST: parsePOST
     };
 }
