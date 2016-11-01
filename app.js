@@ -66,7 +66,7 @@ app.post('/webhook', parsePOST, function (req, res) {
         }
       }
       
-      facebookModule.sendTextMessage(data.senderId, )
+      facebookModule.sendTextMessage(data.senderId, _message)
     })
   })
 
