@@ -53,7 +53,7 @@ app.post('/webhook', parsePOST, function (req, res) {
 
 
   dataList.forEach(function(data){
-    facebookModule.notListen('DeliveryConfirmation' ,'Echo', 'MessageRead', data, function(){
+    facebookModule.notListener('DeliveryConfirmation' ,'Echo', 'MessageRead', data, function(){
 
       console.log(' ****************  dataList **********************')
       console.log(JSON.stringify(dataList))
