@@ -58,7 +58,7 @@ app.post('/webhook', parsePOST, function (req, res) {
       console.log(' ****************  dataList **********************')
       console.log(JSON.stringify(dataList))
       
-      facebookModule.sendTextMessage(data.senderId, 'this is test message: ' +message.text)
+      facebookModule.sendTextMessage(data.senderId, 'this is test message: ' +data.message.text)
     })
   })
 
