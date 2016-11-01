@@ -55,10 +55,18 @@ app.post('/webhook', parsePOST, function (req, res) {
   dataList.forEach(function(data){
     facebookModule.notListener('DeliveryConfirmation' ,'Echo', 'MessageRead', data, function(){
 
-      console.log(' ****************  dataList **********************')
-      console.log(JSON.stringify(dataList))
+      var _message = '';
+
+      if (data.message) {
+        if (data.message.text) {
+          _message = 'this is test message: ' +data.message.text;
+        }
+        else{
+          _message = data.message.attachments[0].payload.url;
+        }
+      }
       
-      facebookModule.sendTextMessage(data.senderId, 'this is test message: ' +data.message.text)
+      facebookModule.sendTextMessage(data.senderId, )
     })
   })
 
