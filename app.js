@@ -12,7 +12,7 @@
 
 var bodyParser = require('body-parser'),
     express = require('express'),
-    facebookModule = require('./module/facebook');
+    facebookModule = require('fb-bot');
     
 
 facebookModule.init({
