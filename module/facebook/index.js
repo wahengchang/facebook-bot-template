@@ -165,7 +165,7 @@ function facebookModule() {
     }
 
 
-    function validateGET(req, res, next) {
+    function authGET(req, res, next) {
           if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === VALIDATION_TOKEN) {
             console.log("Validating webhook");
             next();
@@ -283,9 +283,9 @@ function facebookModule() {
         sendButtonMessage: sendButtonMessage,
         sendQuickReply: sendQuickReply,
         sendTextMessage: sendTextMessage,
-        validateGET: validateGET,
         listener: listener,
         notListener: notListener,
+        authGET: authGET,
         parsePOST: parsePOST
     };
 }

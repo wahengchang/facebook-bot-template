@@ -11,12 +11,9 @@
 'use strict';
 
 var bodyParser = require('body-parser'),
-    config = require('config'),
     express = require('express'),
-    https = require('https'),
-    facebookModule = require('./module/facebook'),
-    validateGET = facebookModule.validateGET,
-    parsePOST = facebookModule.parsePOST;
+    facebookModule = require('./module/facebook');
+    
 
 facebookModule.init({
   APP_SECRET: process.env.APP_SECRET,
@@ -36,7 +33,7 @@ app.use(express.static('public'));
  * setup is the same token used here.
  *
  */
-app.get('/webhook', validateGET, function (req, res, next) {
+app.get('/webhook', facebookModule.authGET, function (req, res, next) {
     res.status(200).send(req.query['hub.challenge']);
 });
 
@@ -47,26 +44,15 @@ app.get('/webhook', validateGET, function (req, res, next) {
  * https://developers.facebook.com/docs/messenger-platform/product-overview/setup#subscribe_app
  *
  */
-app.post('/webhook', parsePOST, function (req, res) {
+app.post('/webhook', facebookModule.parsePOST, function (req, res) {
 
   var dataList = req.afterParse ;
 
-
   dataList.forEach(function(data){
     facebookModule.notListener('DeliveryConfirmation' ,'Echo', 'MessageRead', data, function(){
-
-      var _message = '';
-
-      if (data.message) {
-        if (data.message.text) {
-          _message = 'this is test message: ' +data.message.text;
-        }
-        else{
-          _message = data.message.attachments[0].payload.url;
-        }
-      }
       
-      facebookModule.sendTextMessage(data.senderId, _message)
+      facebookModule.sendTextMessage(data.senderId, data.message.text)
+
     })
   })
 
